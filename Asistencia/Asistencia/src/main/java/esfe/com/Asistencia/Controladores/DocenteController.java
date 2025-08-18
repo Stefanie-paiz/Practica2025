@@ -135,4 +135,3 @@ public void generarPdf(Model model, HttpServletResponse response) throws Excepti
     response.getOutputStream().flush();
 }
 }
-
