@@ -29,6 +29,7 @@ import esfe.com.Asistencia.Servicios.Interfaces.IGrupoService;
 @Controller
 @RequestMapping("/asignaciones")
 public class DocenteGrupoController {
+
     @Autowired
     private IDocenteGrupoService docenteGrupoService;
 
