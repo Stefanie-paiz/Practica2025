@@ -6,3 +6,4 @@ public interface IGrupoRepository extends JpaRepository<Grupo, Integer> {
     
 
 }
+

@@ -90,8 +90,8 @@
                 <div class="collapse" id="dashboard">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="../demo1/index.html">
-                        <span class="sub-item">Dashboard 1</span>
+                      <a th:href="@{/}">
+                        <span class="sub-item">Dashboard</span>
                       </a>
                     </li>
                   </ul>
@@ -112,13 +112,18 @@
                       </a>
                     </li>
                     <li>
-                      <a href="components/buttons.html">
+                      <a th:href="@{/grupos}">
                         <span class="sub-item">Grupos</span>
                       </a>
                     </li>
                     <li>
-                      <a href="components/gridsystem.html">
+                      <a th:href="@{/docentes}">
                         <span class="sub-item">Docentes</span>
+                      </a>
+                    </li>
+                     <li>
+                      <a th:href="@{/asignaciones}">
+                        <span class="sub-item">Asignaciones</span>
                       </a>
                     </li>
                   
@@ -777,6 +782,8 @@
     <!-- jQuery Vector Maps -->
     <script th:src="@{/assets/js/plugin/jsvectormap/jsvectormap.min.js}"></script>
     <script th:src="@{/assets/js/plugin/jsvectormap/world.js}"></script>
+
+
 
     <!-- Kaiadmin JS -->
     <script th:src="@{/assets/js/kaiadmin.min.js}"></script>

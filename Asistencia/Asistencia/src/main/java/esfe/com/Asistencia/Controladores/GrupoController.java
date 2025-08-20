@@ -1,5 +1,14 @@
 package esfe.com.Asistencia.Controladores;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,17 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
-import java.util.stream.IntStream;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
 import esfe.com.Asistencia.Modelos.Grupo;
 import esfe.com.Asistencia.Servicios.Interfaces.IGrupoService;
+
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -33,28 +35,30 @@ public class GrupoController {
 
     @GetMapping
     public String index(Model model,
-                  @RequestParam(value = "page") Optional<Integer> page,
-                  @RequestParam(value = "size") Optional<Integer> size) {
-        int currentPage = page.orElse(1) -1;
+                        @RequestParam("page") Optional<Integer> page,
+                        @RequestParam("size") Optional<Integer> size) {
+
+        int currentPage = page.orElse(1) - 1;
         int pageSize = size.orElse(5);
         Pageable pageable = PageRequest.of(currentPage, pageSize);
 
         Page<Grupo> grupos = grupoService.buscarTodos(pageable);
         model.addAttribute("grupos", grupos);
 
-        int totalPages = grupos.getTotalPages();    
+        int totalPages = grupos.getTotalPages();
         if (totalPages > 0) {
-        List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages) 
-                .boxed().collect(Collectors.toList());
-                model.addAttribute("pageNumbers", pageNumbers);
-                }
-            
-        return "Grupo/Index";
-    
-}
-  // ----------- CREAR --------------
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        return "grupo/index";
+    }
+
+    // ----------- CREAR --------------
     @GetMapping("/create")
     public String create(Model model) {
+        
         model.addAttribute("grupo", new Grupo());
         model.addAttribute("action", "create");
         return "grupo/mant";
@@ -89,7 +93,7 @@ public class GrupoController {
 
     // ----------- PROCESAR POST según action --------------
     @PostMapping("/create")
-    public String saveNuevo(@ModelAttribute Grupo grupo, BindingResult result,
+    public String saveNuevo(  @Valid @ModelAttribute Grupo grupo, BindingResult result,
                             RedirectAttributes redirect, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("action", "create");
@@ -101,7 +105,7 @@ public class GrupoController {
     }
 
     @PostMapping("/edit")
-    public String saveEditado(@ModelAttribute Grupo grupo, BindingResult result,
+    public String saveEditado(@Valid @ModelAttribute Grupo grupo, BindingResult result,
                               RedirectAttributes redirect, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("action", "edit");
@@ -114,8 +118,11 @@ public class GrupoController {
 
     @PostMapping("/delete")
     public String deleteGrupo(@ModelAttribute Grupo grupo, RedirectAttributes redirect) {
-        grupoService.eliminarporId(grupo.getId());
+        grupoService.eliminarPorId(grupo.getId());
         redirect.addFlashAttribute("msg", "Grupo eliminado correctamente");
         return "redirect:/grupos";
     }
+
+
 }
+

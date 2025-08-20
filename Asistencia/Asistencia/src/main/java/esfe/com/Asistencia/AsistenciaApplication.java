@@ -8,7 +8,8 @@ public class AsistenciaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AsistenciaApplication.class, args);
-					
+	 
+
 	}
 
 }

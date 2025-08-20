@@ -3,7 +3,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import esfe.com.Asistencia.Modelos.Docente;
 
-public interface IDocenteRepository extends JpaRepository<Docente, Integer>{
+public interface IDocenteRepository extends JpaRepository<Docente, Integer>  {
 
-    
 }
+

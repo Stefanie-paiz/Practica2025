@@ -1,35 +1,23 @@
 package esfe.com.Asistencia.Controladores;
 
-
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.validation.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.*;
 
-import esfe.com.Asistencia.Modelos.DocenteGrupo;
-import esfe.com.Asistencia.Servicios.Interfaces.IDocenteGrupoService;
-import esfe.com.Asistencia.Servicios.Interfaces.IDocenteService;
-import esfe.com.Asistencia.Servicios.Interfaces.IGrupoService;
+import esfe.com.Asistencia.Modelos.*;
+import esfe.com.Asistencia.Servicios.Interfaces.*;
 
 @Controller
 @RequestMapping("/asignaciones")
 public class DocenteGrupoController {
-
     @Autowired
     private IDocenteGrupoService docenteGrupoService;
 
@@ -67,7 +55,7 @@ public class DocenteGrupoController {
     public String create(Model model) {
         model.addAttribute("docenteGrupo", new DocenteGrupo());
         model.addAttribute("docentes", docenteService.obtenerTodos());
-        model.addAttribute("grupos", grupoService.ObtenerTodos());
+        model.addAttribute("grupos", grupoService.obtenerTodos());
         model.addAttribute("action", "create");
         return "asignacion/mant";
     }
@@ -78,7 +66,7 @@ public class DocenteGrupoController {
         DocenteGrupo docenteGrupo = docenteGrupoService.buscarPorId(id);
         model.addAttribute("docenteGrupo", docenteGrupo);
         model.addAttribute("docentes", docenteService.obtenerTodos());
-        model.addAttribute("grupos", grupoService.ObtenerTodos());
+        model.addAttribute("grupos", grupoService.obtenerTodos());
         model.addAttribute("action", "edit");
         return "asignacion/mant";
     }
@@ -89,7 +77,7 @@ public class DocenteGrupoController {
         DocenteGrupo docenteGrupo = docenteGrupoService.buscarPorId(id);
         model.addAttribute("docenteGrupo", docenteGrupo);
         model.addAttribute("docentes", docenteService.obtenerTodos());
-        model.addAttribute("grupos", grupoService.ObtenerTodos());
+        model.addAttribute("grupos", grupoService.obtenerTodos());
         model.addAttribute("action", "view");
         return "asignacion/mant";
     }
@@ -100,7 +88,7 @@ public class DocenteGrupoController {
         DocenteGrupo docenteGrupo = docenteGrupoService.buscarPorId(id);
         model.addAttribute("docenteGrupo", docenteGrupo);
         model.addAttribute("docentes", docenteService.obtenerTodos());
-        model.addAttribute("grupos", grupoService.ObtenerTodos());
+        model.addAttribute("grupos", grupoService.obtenerTodos());
         model.addAttribute("action", "delete");
         return "asignacion/mant";
     }
@@ -111,7 +99,7 @@ public class DocenteGrupoController {
                             RedirectAttributes redirect, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("docentes", docenteService.obtenerTodos());
-            model.addAttribute("grupos", grupoService.ObtenerTodos());
+            model.addAttribute("grupos", grupoService.obtenerTodos());
             model.addAttribute("action", "create");
             return "asignacion/mant";
         }
@@ -125,7 +113,7 @@ public class DocenteGrupoController {
                               RedirectAttributes redirect, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("docentes", docenteService.obtenerTodos());
-            model.addAttribute("grupos", grupoService.ObtenerTodos());
+            model.addAttribute("grupos", grupoService.obtenerTodos());
             model.addAttribute("action", "edit");
             return "asignacion/mant";
         }
