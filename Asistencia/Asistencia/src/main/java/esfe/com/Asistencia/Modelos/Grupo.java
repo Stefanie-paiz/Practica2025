@@ -1,7 +1,6 @@
 package esfe.com.Asistencia.Modelos;
-
-
 import java.util.*;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -19,8 +18,6 @@ public class Grupo {
 
     @ManyToMany(mappedBy = "grupos")
     private Set<Docente> docentes = new HashSet<>();
-
-
 
     public Integer getId() {
         return id;
@@ -46,10 +43,5 @@ public class Grupo {
         this.descripcion = descripcion;
     }
 
-    public Set<Docente> getDocentes() {
-        return docentes;
-    }
 
-    public void setDocentes(Set<Docente> docentes) {
-        this.docentes = docentes;
-    }}
+}

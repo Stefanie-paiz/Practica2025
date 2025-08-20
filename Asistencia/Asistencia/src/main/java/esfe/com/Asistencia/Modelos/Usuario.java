@@ -1,77 +1,84 @@
 package esfe.com.Asistencia.Modelos;
 
-import java.util.List;
-
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.persistence.JoinColumn;
+
 import java.util.*;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
-    @NotBlank(message = "El nombre es requerido")
-    private String login;
-    @NotBlank(message = "La clave es requerida")
-    private String clave;
 
-    private int status;
+    @NotBlank(message = "El nombre es requirido")
+    private String Login;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuario_rol",
-    joinColumns = @JoinColumn(name = "usuario_id"),
-    inverseJoinColumns = @JoinColumn(name = "rol_id"))
-    private List<Rol> roles;
+    @NotBlank(message = "La Contraseña es requirida")
+    private String Clave;
 
-    public Integer getId() {
-        return Id;
-    }
+    private int Status;
 
     public void setId(Integer id) {
         Id = id;
     }
 
     public String getLogin() {
-        return login;
+        return Login;
     }
 
     public void setLogin(String login) {
-        login = login;
+        Login = login;
     }
 
     public String getClave() {
-        return clave;
+        return Clave;
     }
 
     public void setClave(String clave) {
-        clave = clave;
+        Clave = clave;
     }
 
     public int getStatus() {
-        return status;
+        return Status;
     }
 
     public void setStatus(int status) {
-        status = status;
+        Status = status;
     }
 
-    public List<Rol> getroles() {
-        return roles;
+    public List<Rol> getRoles() {
+        return Roles;
     }
 
-    public void setroles(List<Rol> roles) {
-        roles = roles;
+    public void setRoles(List<Rol> roles) {
+        Roles = roles;
     }
-    
-    
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuario_rol",
+    joinColumns = @JoinColumn(name = "usuario_id"),
+    inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private List<Rol> Roles;
+
+    public Integer getId(){
+        return Id;
+    }
+
+     // Método para agregar roles
+    public void agregar(Rol tempRol) {
+        if (Roles == null) {
+            Roles = new LinkedList<>();
+        }
+        Roles.add(tempRol);
+    }
 }
